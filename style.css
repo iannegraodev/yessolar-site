@@ -13,9 +13,9 @@
   --navy-500: oklch(43% 0.092 264);
 
   /* Âmbar da marca */
-  --amber:     oklch(81.8% 0.171 78);   /* cor oficial da logo */
-  --amber-600: oklch(74% 0.163 68);
-  --amber-700: oklch(66% 0.150 62);
+  --amber:     oklch(82.3% 0.171 79.5); /* #FFB600 — medido na logo oficial */
+  --amber-600: oklch(76% 0.158 79.1);
+  --amber-700: oklch(69.4% 0.144 79);
   --amber-100: oklch(94% 0.055 85);
 
   /* Neutros — tingidos para o azul da marca, nunca para o creme */
@@ -36,7 +36,7 @@
   --danger: oklch(55% 0.19 27);
 
   /* Tipografia */
-  --font-display: "Archivo", "Segoe UI", system-ui, sans-serif;
+  --font-display: "Saira", "Segoe UI", system-ui, sans-serif;
   --font-body: "Lexend", "Segoe UI", system-ui, sans-serif;
 
   /* Métricas */
@@ -52,7 +52,7 @@
   --sh-sm: 0 1px 2px oklch(25% 0.08 266 / .07), 0 3px 8px oklch(25% 0.08 266 / .05);
   --sh-md: 0 4px 10px oklch(25% 0.08 266 / .08), 0 14px 30px oklch(25% 0.08 266 / .09);
   --sh-lg: 0 10px 24px oklch(25% 0.08 266 / .10), 0 34px 66px oklch(25% 0.08 266 / .16);
-  --sh-amber: 0 6px 16px oklch(74% 0.16 68 / .30), 0 18px 40px oklch(74% 0.16 68 / .26);
+  --sh-amber: 0 6px 16px oklch(76% 0.158 79 / .30), 0 18px 40px oklch(76% 0.158 79 / .26);
 
   /* Curvas de animação */
   --e-quart: cubic-bezier(.25, 1, .5, 1);
@@ -69,7 +69,7 @@
   --z-modal: 95;
 
   /* Textura da marca: o símbolo da logo repetido bem sutilmente */
-  --lattice: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120' viewBox='0 0 100 100'%3E%3Cg fill='%23ffffff'%3E%3Crect x='3' y='3' width='24' height='24' rx='7'/%3E%3Crect x='73' y='3' width='24' height='24' rx='7'/%3E%3Crect x='3' y='73' width='24' height='24' rx='7'/%3E%3Crect x='73' y='73' width='24' height='24' rx='7'/%3E%3Ccircle cx='50' cy='50' r='9'/%3E%3C/g%3E%3Cg fill='%23FFB300'%3E%3Crect x='-11.5' y='-11.5' width='23' height='23' rx='6' transform='translate(50 15) rotate(45)'/%3E%3Crect x='-11.5' y='-11.5' width='23' height='23' rx='6' transform='translate(15 50) rotate(45)'/%3E%3Crect x='-11.5' y='-11.5' width='23' height='23' rx='6' transform='translate(85 50) rotate(45)'/%3E%3Crect x='-11.5' y='-11.5' width='23' height='23' rx='6' transform='translate(50 85) rotate(45)'/%3E%3C/g%3E%3C/svg%3E");
+  --lattice: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120' viewBox='-4 -4 108 108'%3E%3Cg fill='%23ffffff'%3E%3Crect x='1.3' y='1.3' width='27.4' height='27.4' rx='3.8'/%3E%3Crect x='71.3' y='1.3' width='27.4' height='27.4' rx='3.8'/%3E%3Crect x='1.3' y='71.3' width='27.4' height='27.4' rx='3.8'/%3E%3Crect x='71.3' y='71.3' width='27.4' height='27.4' rx='3.8'/%3E%3Ccircle cx='50' cy='50' r='11.1'/%3E%3C/g%3E%3Cg fill='%23FFB600'%3E%3Crect x='-12.75' y='-12.75' width='25.5' height='25.5' rx='3.5' transform='translate(50 15) rotate(45)'/%3E%3Crect x='-12.75' y='-12.75' width='25.5' height='25.5' rx='3.5' transform='translate(15 50) rotate(45)'/%3E%3Crect x='-12.75' y='-12.75' width='25.5' height='25.5' rx='3.5' transform='translate(85 50) rotate(45)'/%3E%3Crect x='-12.75' y='-12.75' width='25.5' height='25.5' rx='3.5' transform='translate(50 85) rotate(45)'/%3E%3C/g%3E%3C/svg%3E");
 }
 
 /* ---------- 2. RESET ---------- */
@@ -101,7 +101,7 @@ h1, h2, h3, h4{
   line-height: 1.06;
   letter-spacing: -.025em;
   text-wrap: balance;
-  font-variation-settings: "wdth" 104;
+  font-variation-settings: "wdth" 108;
 }
 dl, dd, dt{ margin: 0; }
 
@@ -275,38 +275,20 @@ dl, dd, dt{ margin: 0; }
 }
 /* Ao rolar o cabeçalho "condensa" encolhendo a marca — via transform,
    sem animar padding (que causaria recálculo de layout a cada frame). */
-.brand__mark{ transition: transform .45s var(--e-quart); }
-.header.is-stuck .brand__mark{ transform: scale(.86); }
 
-.brand{ display: inline-flex; align-items: center; gap: .7rem; }
-.brand__mark{
-  width: 2.5rem; height: 2.5rem; flex: none;
-  /* Sombra própria do símbolo, para ele não ficar chapado sobre o azul */
-  filter: drop-shadow(0 2px 4px oklch(10% .04 266 / .55));
+.brand{ display: inline-flex; align-items: center; }
+.brand__logo{
+  height: 2.6rem; width: auto; flex: none;
+  /* sombra própria, para a logo não ficar chapada sobre o azul */
+  filter: drop-shadow(0 2px 5px oklch(10% .04 266 / .5));
+  transition: transform .55s var(--e-expo), filter .4s var(--e-soft);
 }
-.mark__squares{ fill: #fff; }
-.mark__diamonds{ fill: var(--amber); }
-.mark__core{ fill: #fff; }
-/* transform-box: fill-box é OBRIGATÓRIO aqui. Sem ele, o transform-origin abaixo
-   passa a valer sobre o viewBox inteiro, e os translate/rotate dos 4 losangos âmbar
-   são calculados a partir do centro errado — eles saem voando para fora do quadro. */
-.brand__mark rect, .brand__mark circle{
-  transform-box: fill-box;
-  transform-origin: 50% 50%;
-  transition: transform .55s var(--e-expo), opacity .4s;
+.brand:hover .brand__logo{
+  transform: scale(1.035);
+  filter: drop-shadow(0 3px 9px oklch(10% .04 266 / .6));
 }
-.brand:hover .mark__diamonds rect{ transform: scale(1.18); }
-.brand:hover .mark__core{ transform: scale(1.25); }
-.brand__type{ display: grid; line-height: 1; }
-.brand__type strong{
-  font-family: var(--font-display); font-weight: 800; font-size: 1.16rem;
-  color: #fff; letter-spacing: -.01em;
-  font-variation-settings: "wdth" 112;
-}
-.brand__type small{
-  font-size: .625rem; letter-spacing: .17em; margin-top: .32rem;
-  color: var(--amber); font-weight: 400;
-}
+.header.is-stuck .brand__logo{ height: 2.35rem; }
+.brand--footer .brand__logo{ height: 3.6rem; }
 
 .nav{ display: flex; align-items: center; gap: 2rem; }
 .nav__list{ display: flex; align-items: center; gap: 1.85rem; }
@@ -370,7 +352,7 @@ dl, dd, dt{ margin: 0; }
   font-size: clamp(2.35rem, 1rem + 6.1vw, 5.1rem);
   line-height: .99;
   letter-spacing: -.035em;
-  font-variation-settings: "wdth" 100;
+  font-variation-settings: "wdth" 106;
   max-width: 16ch;
 }
 .hero__title span{ display: block; }
@@ -390,7 +372,7 @@ dl, dd, dt{ margin: 0; }
 .hero__facts{
   position: relative;
   background: var(--navy-900);
-  border-top: 1px solid oklch(81.8% .171 78 / .35);
+  border-top: 1px solid oklch(82.3% .171 79.5 / .35);
 }
 .hero__facts::after{
   content: ""; position: absolute; inset: 0;
@@ -537,7 +519,7 @@ dl, dd, dt{ margin: 0; }
 .chip.is-on{
   background: var(--amber); border-color: var(--amber); color: var(--navy-700);
   font-weight: 600;
-  box-shadow: 0 6px 18px oklch(74% .16 68 / .32);
+  box-shadow: 0 6px 18px oklch(76% .158 79 / .32);
 }
 
 .carousel{ position: relative; }
@@ -623,7 +605,7 @@ dl, dd, dt{ margin: 0; }
   background: var(--amber);
   border-radius: var(--r-md);
   transform: rotate(45deg);
-  box-shadow: 0 8px 20px oklch(74% .16 68 / .3);
+  box-shadow: 0 8px 20px oklch(76% .158 79 / .3);
   transition: transform .55s var(--e-expo), box-shadow .4s var(--e-soft);
 }
 .step__n i{
@@ -632,7 +614,7 @@ dl, dd, dt{ margin: 0; }
   font-family: var(--font-display); font-weight: 800; font-size: 1.15rem;
   color: var(--navy-700);
 }
-.step:hover .step__n{ transform: rotate(135deg); box-shadow: 0 12px 28px oklch(74% .16 68 / .45); }
+.step:hover .step__n{ transform: rotate(135deg); box-shadow: 0 12px 28px oklch(76% .158 79 / .45); }
 .step:hover .step__n i{ transform: rotate(-135deg); }
 .step__n i{ transition: transform .55s var(--e-expo); }
 .step h3{ font-size: 1.1rem; margin-bottom: .5rem; }
@@ -697,7 +679,7 @@ dl, dd, dt{ margin: 0; }
 }
 .field__wrap:focus-within{
   border-color: var(--amber);
-  box-shadow: 0 0 0 4px oklch(81.8% .171 78 / .22);
+  box-shadow: 0 0 0 4px oklch(82.3% .171 79.5 / .22);
 }
 .field__prefix{
   padding-inline-start: .95rem;
@@ -819,7 +801,6 @@ dl, dd, dt{ margin: 0; }
 }
 .footer__brand{ grid-column: span 2; max-width: 30rem; }
 .footer__brand p{ margin-top: 1.25rem; font-size: .92rem; line-height: 1.7; }
-.brand--footer .brand__mark{ width: 2.75rem; height: 2.75rem; }
 .footer__col h2{
   font-size: .8rem; color: var(--amber); letter-spacing: .09em;
   margin-bottom: 1.15rem; font-weight: 700;
