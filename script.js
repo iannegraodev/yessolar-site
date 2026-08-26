@@ -16,6 +16,38 @@
     return 'https://wa.me/' + WHATS + '?text=' + encodeURIComponent(msg);
   }
 
+  /* ---------- 0. Tela de carregamento ----------
+     Some quando a página termina de carregar, respeitando um tempo mínimo
+     para não dar um "flash" em conexão rápida, e um tempo máximo para nunca
+     prender o visitante caso alguma imagem demore demais. */
+  var tela = $('#carregando');
+  if (tela) {
+    var TEMPO_MINIMO = 900;    /* evita o piscar em conexão rápida */
+    var TEMPO_MAXIMO = 4500;   /* trava de segurança */
+    var comecou = Date.now();
+    var jaSaiu = false;
+
+    document.body.classList.add('carregando-ativo');
+
+    function fecharTela() {
+      if (jaSaiu) return;
+      jaSaiu = true;
+      tela.classList.add('saiu');
+      document.body.classList.remove('carregando-ativo');
+      /* tira da árvore depois da transição, para não capturar cliques nem foco */
+      setTimeout(function () { tela.hidden = true; }, 700);
+    }
+
+    function fecharRespeitandoMinimo() {
+      setTimeout(fecharTela, Math.max(0, TEMPO_MINIMO - (Date.now() - comecou)));
+    }
+
+    if (document.readyState === 'complete') fecharRespeitandoMinimo();
+    else window.addEventListener('load', fecharRespeitandoMinimo);
+
+    setTimeout(fecharTela, TEMPO_MAXIMO);
+  }
+
   /* ---------- 1. Ano no rodapé ---------- */
   var ano = $('#ano');
   if (ano) ano.textContent = String(new Date().getFullYear());

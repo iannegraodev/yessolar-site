@@ -52,7 +52,7 @@
   --sh-sm: 0 1px 2px oklch(25% 0.08 266 / .07), 0 3px 8px oklch(25% 0.08 266 / .05);
   --sh-md: 0 4px 10px oklch(25% 0.08 266 / .08), 0 14px 30px oklch(25% 0.08 266 / .09);
   --sh-lg: 0 10px 24px oklch(25% 0.08 266 / .10), 0 34px 66px oklch(25% 0.08 266 / .16);
-  --sh-amber: 0 6px 16px oklch(76% 0.158 79 / .30), 0 18px 40px oklch(76% 0.158 79 / .26);
+  --sh-btn:   0 4px 12px oklch(25% 0.08 266 / .18), 0 12px 26px oklch(25% 0.08 266 / .16);
 
   /* Curvas de animação */
   --e-quart: cubic-bezier(.25, 1, .5, 1);
@@ -67,6 +67,7 @@
   --z-drawer: 80;
   --z-float: 85;
   --z-modal: 95;
+  --z-carregando: 100;
 
   /* Textura da marca: o símbolo da logo repetido bem sutilmente */
   --lattice: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120' viewBox='-4 -4 108 108'%3E%3Cg fill='%23ffffff'%3E%3Crect x='1.3' y='1.3' width='27.4' height='27.4' rx='3.8'/%3E%3Crect x='71.3' y='1.3' width='27.4' height='27.4' rx='3.8'/%3E%3Crect x='1.3' y='71.3' width='27.4' height='27.4' rx='3.8'/%3E%3Crect x='71.3' y='71.3' width='27.4' height='27.4' rx='3.8'/%3E%3Ccircle cx='50' cy='50' r='11.1'/%3E%3C/g%3E%3Cg fill='%23FFB600'%3E%3Crect x='-12.75' y='-12.75' width='25.5' height='25.5' rx='3.5' transform='translate(50 15) rotate(45)'/%3E%3Crect x='-12.75' y='-12.75' width='25.5' height='25.5' rx='3.5' transform='translate(15 50) rotate(45)'/%3E%3Crect x='-12.75' y='-12.75' width='25.5' height='25.5' rx='3.5' transform='translate(85 50) rotate(45)'/%3E%3Crect x='-12.75' y='-12.75' width='25.5' height='25.5' rx='3.5' transform='translate(50 85) rotate(45)'/%3E%3C/g%3E%3C/svg%3E");
@@ -186,7 +187,7 @@ dl, dd, dt{ margin: 0; }
               background-color .3s var(--e-soft), color .3s var(--e-soft),
               border-color .3s var(--e-soft);
 }
-.btn--amber{ box-shadow: var(--sh-amber); }
+.btn--amber{ box-shadow: var(--sh-btn); }
 .btn--amber:hover{ background: var(--amber-600); transform: translateY(-3px); }
 .btn--amber:active{ transform: translateY(-1px); }
 
@@ -519,7 +520,6 @@ dl, dd, dt{ margin: 0; }
 .chip.is-on{
   background: var(--amber); border-color: var(--amber); color: var(--navy-700);
   font-weight: 600;
-  box-shadow: 0 6px 18px oklch(76% .158 79 / .32);
 }
 
 .carousel{ position: relative; }
@@ -605,7 +605,7 @@ dl, dd, dt{ margin: 0; }
   background: var(--amber);
   border-radius: var(--r-md);
   transform: rotate(45deg);
-  box-shadow: 0 8px 20px oklch(76% .158 79 / .3);
+  box-shadow: 0 6px 16px oklch(25% 0.08 266 / .20);
   transition: transform .55s var(--e-expo), box-shadow .4s var(--e-soft);
 }
 .step__n i{
@@ -614,7 +614,7 @@ dl, dd, dt{ margin: 0; }
   font-family: var(--font-display); font-weight: 800; font-size: 1.15rem;
   color: var(--navy-700);
 }
-.step:hover .step__n{ transform: rotate(135deg); box-shadow: 0 12px 28px oklch(76% .158 79 / .45); }
+.step:hover .step__n{ transform: rotate(135deg); box-shadow: 0 10px 24px oklch(25% 0.08 266 / .28); }
 .step:hover .step__n i{ transform: rotate(-135deg); }
 .step__n i{ transition: transform .55s var(--e-expo); }
 .step h3{ font-size: 1.1rem; margin-bottom: .5rem; }
@@ -826,7 +826,7 @@ dl, dd, dt{ margin: 0; }
   padding: 1rem;
   border-radius: var(--r-pill);
   background: var(--amber); color: var(--navy-700);
-  box-shadow: var(--sh-amber);
+  box-shadow: var(--sh-btn);
   /* O rótulo abre pela trilha do grid (0fr → 1fr): sem animar largura nem padding. */
   transition: grid-template-columns .45s var(--e-quart),
               transform .45s var(--e-quart),
@@ -1021,6 +1021,13 @@ dl, dd, dt{ margin: 0; }
   .js .diffs li, .js .step, .js .depo, .js .sim__intro, .js .sim__panel,
   .js .contato__info, .js .form, .js .hero__facts li{ opacity: 1; transform: none; }
   .wa-float{ grid-template-columns: auto 1fr; }
+  /* A tela de carregamento fica parada, mas legível: sol aceso, barra cheia,
+     reflexo desligado. A animação de segurança continua valendo. */
+  .carregando__sol{ transform: scale(1); opacity: 1; }
+  .carregando__raios i{ opacity: .5; }
+  .carregando__reflexo{ opacity: 0; }
+  .carregando__barra span{ width: 100%; transform: none; }
+  .carregando__texto{ opacity: 1; }
 }
 
 /* ---------- 22. IMPRESSÃO ---------- */
@@ -1029,3 +1036,126 @@ dl, dd, dt{ margin: 0; }
   body{ background: #fff; }
   .projetos, .simulador, .footer{ background: #fff; color: #000; }
 }
+
+
+/* ---------- 23. TELA DE CARREGAMENTO ----------
+   Só existe quando há JavaScript (a classe .js entra no <head>). Sem JS a tela
+   nunca aparece e o site abre direto — nada de conteúdo preso atrás de um véu. */
+.carregando{ display: none; }
+
+.js .carregando{
+  position: fixed; inset: 0; z-index: var(--z-carregando);
+  display: grid; place-content: center; justify-items: center;
+  gap: clamp(1.6rem, 4vh, 2.6rem);
+  background: var(--navy-900);
+  overflow: hidden;
+  transition: opacity .55s var(--e-soft), visibility .55s;
+  /* Rede de segurança: se o script falhar em carregar, a tela some sozinha. */
+  animation: carregandoSocorro .5s var(--e-soft) 5.5s forwards;
+}
+.js .carregando::before{
+  content: ""; position: absolute; inset: 0;
+  background-image: var(--lattice); background-size: 120px;
+  opacity: .03;
+}
+.carregando.saiu{ opacity: 0; visibility: hidden; pointer-events: none; }
+/* Trava a rolagem só enquanto a tela está no ar. Quem aplica e remove é o
+   script, então se ele falhar a página nunca fica travada. */
+body.carregando-ativo{ overflow: hidden; }
+@keyframes carregandoSocorro{ to{ opacity: 0; visibility: hidden; pointer-events: none; } }
+
+/* O sol: um halo âmbar que respira atrás da marca */
+.carregando__sol{
+  position: absolute; inset-inline-start: 50%; inset-block-start: 50%;
+  width: min(80vw, 36rem); aspect-ratio: 1;
+  translate: -50% -50%;
+  background: radial-gradient(circle,
+    oklch(82.3% .171 79.5 / .34) 0%,
+    oklch(82.3% .171 79.5 / .12) 36%,
+    transparent 66%);
+  filter: blur(10px);
+  animation: solRespira 3s var(--e-soft) infinite;
+}
+@keyframes solRespira{
+  0%, 100%{ transform: scale(.84); opacity: .5; }
+  50%     { transform: scale(1.06); opacity: 1; }
+}
+
+/* Oito raios saindo do centro, no ritmo de um relógio solar */
+.carregando__raios{
+  position: absolute; inset-inline-start: 50%; inset-block-start: 50%;
+  width: min(72vw, 30rem); aspect-ratio: 1;
+  translate: -50% -50%;
+  animation: raiosGiram 14s linear infinite;
+}
+.carregando__raios i{
+  position: absolute; inset-block-start: 0; inset-inline-start: 50%;
+  width: 2px; height: 12%;
+  margin-inline-start: -1px;
+  border-radius: 2px;
+  background: linear-gradient(to bottom, var(--amber), transparent);
+  transform-origin: 50% 416.6%;   /* 100/24: gira em torno do centro do círculo */
+  opacity: .3;
+  animation: raioPulsa 2.4s var(--e-soft) infinite;
+}
+.carregando__raios i:nth-child(1){ transform: rotate(0deg);   animation-delay: 0s; }
+.carregando__raios i:nth-child(2){ transform: rotate(45deg);  animation-delay: .15s; }
+.carregando__raios i:nth-child(3){ transform: rotate(90deg);  animation-delay: .3s; }
+.carregando__raios i:nth-child(4){ transform: rotate(135deg); animation-delay: .45s; }
+.carregando__raios i:nth-child(5){ transform: rotate(180deg); animation-delay: .6s; }
+.carregando__raios i:nth-child(6){ transform: rotate(225deg); animation-delay: .75s; }
+.carregando__raios i:nth-child(7){ transform: rotate(270deg); animation-delay: .9s; }
+.carregando__raios i:nth-child(8){ transform: rotate(315deg); animation-delay: 1.05s; }
+@keyframes raioPulsa{ 0%,100%{ opacity: .18; } 50%{ opacity: .85; } }
+@keyframes raiosGiram{ to{ rotate: 360deg; } }
+
+/* A marca, com um reflexo de luz atravessando — como sol batendo na placa */
+.carregando__marca{ position: relative; z-index: 1; }
+/* A logo fica acima do halo; o halo e os raios são filhos dela, então
+   acompanham o centro da marca em qualquer tamanho de tela. */
+.carregando__marca img{ position: relative; z-index: 2; width: min(64vw, 19.5rem); height: auto; }
+.carregando__reflexo{
+  position: absolute; inset: 0; z-index: 3;
+  background: linear-gradient(100deg,
+    transparent 40%, oklch(100% 0 0 / .9) 50%, transparent 60%);
+  background-size: 250% 100%;
+  background-repeat: no-repeat;
+  /* A máscara usa o canal alfa da própria logo: o brilho só corre por dentro dela */
+  -webkit-mask-image: url("assets/img/logo-yessolar-480.webp");
+          mask-image: url("assets/img/logo-yessolar-480.webp");
+  -webkit-mask-size: contain;  mask-size: contain;
+  -webkit-mask-repeat: no-repeat; mask-repeat: no-repeat;
+  -webkit-mask-position: center;  mask-position: center;
+  mix-blend-mode: screen;
+  animation: reflexoCorre 2.8s var(--e-soft) infinite;
+}
+@keyframes reflexoCorre{
+  0%      { background-position: 150% 0; }
+  65%,100%{ background-position: -60% 0; }
+}
+
+.carregando__barra{
+  position: relative; z-index: 1; overflow: hidden;
+  width: min(54vw, 13rem); height: 3px;
+  border-radius: var(--r-pill);
+  background: oklch(100% 0 0 / .13);
+}
+.carregando__barra span{
+  display: block; width: 40%; height: 100%;
+  border-radius: inherit;
+  background: var(--amber);
+  animation: barraCorre 1.5s var(--e-quart) infinite;
+}
+@keyframes barraCorre{
+  0%  { transform: translateX(-110%); }
+  100%{ transform: translateX(360%); }
+}
+
+.carregando__texto{
+  position: relative; z-index: 1;
+  font-family: var(--font-display); font-weight: 500;
+  font-size: .84rem; letter-spacing: .1em;
+  color: var(--white-55);
+  animation: textoPulsa 2.4s var(--e-soft) infinite;
+}
+@keyframes textoPulsa{ 0%,100%{ opacity: .5; } 50%{ opacity: 1; } }
