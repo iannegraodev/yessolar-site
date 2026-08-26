@@ -22,9 +22,7 @@
      prender o visitante caso alguma imagem demore demais. */
   var tela = $('#carregando');
   if (tela) {
-    var TEMPO_MINIMO = 900;    /* evita o piscar em conexão rápida */
-    var TEMPO_MAXIMO = 4500;   /* trava de segurança */
-    var comecou = Date.now();
+    var TEMPO_NA_TELA = 2500;
     var jaSaiu = false;
 
     document.body.classList.add('carregando-ativo');
@@ -34,18 +32,27 @@
       jaSaiu = true;
       tela.classList.add('saiu');
       document.body.classList.remove('carregando-ativo');
-      /* tira da árvore depois da transição, para não capturar cliques nem foco */
       setTimeout(function () { tela.hidden = true; }, 700);
     }
 
-    function fecharRespeitandoMinimo() {
-      setTimeout(fecharTela, Math.max(0, TEMPO_MINIMO - (Date.now() - comecou)));
+    /* O cronômetro precisa começar quando a logo APARECE, não quando este
+       arquivo roda — entre uma coisa e outra havia ~260ms que esticavam a
+       tela para 2,76s. "first-contentful-paint" é justamente o instante da
+       primeira pintura, então descontamos o que já passou. */
+    function instanteDaPrimeiraPintura() {
+      if (!window.performance || !performance.getEntriesByType) return null;
+      var marcas = performance.getEntriesByType('paint');
+      for (var i = 0; i < marcas.length; i++) {
+        if (marcas[i].name === 'first-contentful-paint') return marcas[i].startTime;
+      }
+      return null;
     }
 
-    if (document.readyState === 'complete') fecharRespeitandoMinimo();
-    else window.addEventListener('load', fecharRespeitandoMinimo);
+    var pintou = instanteDaPrimeiraPintura();
+    var jaNaTela = pintou === null ? 0 : (performance.now() - pintou);
+    setTimeout(fecharTela, Math.max(0, TEMPO_NA_TELA - jaNaTela));
 
-    setTimeout(fecharTela, TEMPO_MAXIMO);
+    setTimeout(fecharTela, 5000);   /* rede de segurança */
   }
 
   /* ---------- 1. Ano no rodapé ---------- */

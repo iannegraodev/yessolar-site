@@ -1050,8 +1050,8 @@ dl, dd, dt{ margin: 0; }
   background: var(--navy-900);
   overflow: hidden;
   transition: opacity .55s var(--e-soft), visibility .55s;
-  /* Rede de segurança: se o script falhar em carregar, a tela some sozinha. */
-  animation: carregandoSocorro .5s var(--e-soft) 5.5s forwards;
+  /* Rede de segurança: se o script sequer carregar, a tela some sozinha. */
+  animation: carregandoSocorro .5s var(--e-soft) 6s forwards;
 }
 .js .carregando::before{
   content: ""; position: absolute; inset: 0;
@@ -1059,10 +1059,10 @@ dl, dd, dt{ margin: 0; }
   opacity: .03;
 }
 .carregando.saiu{ opacity: 0; visibility: hidden; pointer-events: none; }
+@keyframes carregandoSocorro{ to{ opacity: 0; visibility: hidden; pointer-events: none; } }
 /* Trava a rolagem só enquanto a tela está no ar. Quem aplica e remove é o
    script, então se ele falhar a página nunca fica travada. */
 body.carregando-ativo{ overflow: hidden; }
-@keyframes carregandoSocorro{ to{ opacity: 0; visibility: hidden; pointer-events: none; } }
 
 /* O sol: um halo âmbar que respira atrás da marca */
 .carregando__sol{
