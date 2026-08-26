@@ -839,7 +839,10 @@ dl, dd, dt{ margin: 0; }
 }
 .wa-float span{
   min-width: 0; overflow: hidden; white-space: nowrap;
-  padding-inline: .55rem .25rem;
+  /* O respiro à esquerda vem de text-indent, e não de padding: padding sobrevive
+     à trilha 0fr e deixava 12,8px de largura, expondo o começo do "F" com o
+     rótulo fechado. text-indent faz parte do conteúdo, então é recortado junto. */
+  text-indent: .6rem;
   font-family: var(--font-display); font-weight: 700; font-size: .95rem;
 }
 .wa-float:hover, .wa-float:focus-visible{
