@@ -135,6 +135,14 @@ dl, dd, dt{ margin: 0; }
 }
 .ico--arrow{ transition: transform .4s var(--e-quart); }
 
+/* Logos de marca (WhatsApp, Instagram): são glifos preenchidos, não contornos.
+   Vêm centralizados de fábrica no quadro 0 0 24 24. */
+.ico--glifo, .glifo{
+  fill: currentColor;
+  stroke: none;
+  filter: drop-shadow(0 1px 1.5px oklch(20% .06 266 / .28));
+}
+
 .sec-head{ margin-bottom: clamp(2.5rem, 5vw, 4rem); }
 .sec-head__title{ font-size: clamp(1.95rem, 1.1rem + 3.1vw, 3.35rem); }
 .sec-head__title--sm{ font-size: clamp(1.5rem, 1.1rem + 1.6vw, 2.1rem); margin-bottom: 2.5rem; }
@@ -271,11 +279,22 @@ dl, dd, dt{ margin: 0; }
 .header.is-stuck .brand__mark{ transform: scale(.86); }
 
 .brand{ display: inline-flex; align-items: center; gap: .7rem; }
-.brand__mark{ width: 2.5rem; height: 2.5rem; flex: none; }
+.brand__mark{
+  width: 2.5rem; height: 2.5rem; flex: none;
+  /* Sombra própria do símbolo, para ele não ficar chapado sobre o azul */
+  filter: drop-shadow(0 2px 4px oklch(10% .04 266 / .55));
+}
 .mark__squares{ fill: #fff; }
 .mark__diamonds{ fill: var(--amber); }
 .mark__core{ fill: #fff; }
-.brand__mark rect, .brand__mark circle{ transition: transform .55s var(--e-expo), opacity .4s; transform-origin: 50% 50%; }
+/* transform-box: fill-box é OBRIGATÓRIO aqui. Sem ele, o transform-origin abaixo
+   passa a valer sobre o viewBox inteiro, e os translate/rotate dos 4 losangos âmbar
+   são calculados a partir do centro errado — eles saem voando para fora do quadro. */
+.brand__mark rect, .brand__mark circle{
+  transform-box: fill-box;
+  transform-origin: 50% 50%;
+  transition: transform .55s var(--e-expo), opacity .4s;
+}
 .brand:hover .mark__diamonds rect{ transform: scale(1.18); }
 .brand:hover .mark__core{ transform: scale(1.25); }
 .brand__type{ display: grid; line-height: 1; }
@@ -834,8 +853,8 @@ dl, dd, dt{ margin: 0; }
 }
 .wa-float svg{
   width: 1.6rem; height: 1.6rem; flex: none;
-  fill: none; stroke: currentColor; stroke-width: 1.7;
-  stroke-linecap: round; stroke-linejoin: round;
+  fill: currentColor; stroke: none;
+  filter: drop-shadow(0 1px 2px oklch(20% .06 266 / .35));
 }
 .wa-float span{
   min-width: 0; overflow: hidden; white-space: nowrap;
