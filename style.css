@@ -1151,11 +1151,17 @@ body.carregando-ativo{ overflow: hidden; }
   100%{ transform: translateX(360%); }
 }
 
+/* Deixou de ser um rótulo curto de status: agora carrega a frase da marca,
+   então precisa de medida de leitura, quebra equilibrada e mais contraste. */
 .carregando__texto{
   position: relative; z-index: 1;
+  max-width: min(86vw, 25rem);
+  text-align: center; text-wrap: balance;
   font-family: var(--font-display); font-weight: 500;
-  font-size: .84rem; letter-spacing: .1em;
-  color: var(--white-55);
-  animation: textoPulsa 2.4s var(--e-soft) infinite;
+  font-size: clamp(.95rem, .88rem + .35vw, 1.1rem);
+  line-height: 1.5; letter-spacing: .005em;
+  color: var(--white-72);
+  animation: textoPulsa 2.6s var(--e-soft) infinite;
 }
-@keyframes textoPulsa{ 0%,100%{ opacity: .5; } 50%{ opacity: 1; } }
+.carregando__texto em{ font-style: normal; font-weight: 600; color: var(--amber); }
+@keyframes textoPulsa{ 0%,100%{ opacity: .78; } 50%{ opacity: 1; } }
