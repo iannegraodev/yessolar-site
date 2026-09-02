@@ -549,7 +549,7 @@ dl, dd, dt{ margin: 0; }
   transition: transform .5s var(--e-quart), box-shadow .5s var(--e-quart);
 }
 .card img{
-  width: 100%; aspect-ratio: 4 / 5; object-fit: cover;
+  width: 100%; aspect-ratio: 4 / 3; object-fit: cover;
   transition: transform .8s var(--e-expo), filter .5s var(--e-soft);
 }
 .card::after{
@@ -558,21 +558,27 @@ dl, dd, dt{ margin: 0; }
   transform: scaleX(0); transform-origin: 0 50%;
   transition: transform .5s var(--e-quart);
 }
-.card__meta{
-  position: absolute; inset-block-end: 0; inset-inline: 0;
-  display: grid; gap: .22rem;
-  padding: 3.5rem 1.2rem 1.2rem;
-  background: linear-gradient(to top, oklch(12% .04 266 / .95) 12%, oklch(12% .04 266 / .72) 45%, transparent);
-  transition: transform .55s var(--e-quart);
+/* Sem legenda: a foto é o conteúdo. A lupa aparece no hover só para avisar
+   que dá para ampliar, e um véu leve segura o contraste do ícone. */
+.card__lupa{
+  position: absolute; inset-block-start: .7rem; inset-inline-end: .7rem;
+  display: grid; place-items: center;
+  width: 2.4rem; height: 2.4rem;
+  border-radius: 50%;
+  background: oklch(15.5% .048 266 / .62);
+  backdrop-filter: blur(3px);
+  color: #fff;
+  opacity: 0; transform: scale(.8);
+  transition: opacity .35s var(--e-soft), transform .45s var(--e-quart), background-color .3s var(--e-soft);
 }
-.card__meta b{
-  font-family: var(--font-display); font-weight: 700; font-size: 1.02rem;
-  color: #fff; letter-spacing: -.015em; line-height: 1.2;
+.card__lupa svg{
+  width: 1.15rem; height: 1.15rem;
+  fill: none; stroke: currentColor; stroke-width: 1.9;
+  stroke-linecap: round; stroke-linejoin: round;
 }
-.card__meta i{
-  font-style: normal; font-size: .82rem; line-height: 1.4;
-  color: var(--white-72);
-}
+.card:hover .card__lupa, .card:focus-visible .card__lupa{ opacity: 1; transform: none; }
+.card:hover .card__lupa{ background: var(--amber); color: var(--navy-700); }
+
 .card:hover, .card:focus-visible{ transform: translateY(-6px); box-shadow: 0 22px 50px oklch(10% .04 266 / .6); }
 .card:hover img{ transform: scale(1.07); }
 .card:hover::after, .card:focus-visible::after{ transform: scaleX(1); }

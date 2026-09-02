@@ -267,7 +267,6 @@
   /* ---------- 8. Lightbox (foto ampliada) ---------- */
   var lb = $('#lightbox');
   var lbImg = $('#lbImg');
-  var lbCap = $('#lbCap');
   var galeria = [];
   var indice = 0;
 
@@ -281,7 +280,6 @@
     var card = galeria[indice];
     lbImg.src = card.dataset.img;
     lbImg.alt = $('img', card).alt;
-    lbCap.textContent = card.dataset.title;
   }
 
   if (lb && lbImg) {
